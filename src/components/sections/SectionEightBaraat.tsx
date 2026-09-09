@@ -15,7 +15,7 @@ export function SectionEightBaraat() {
           loop
           muted
           playsInline
-          className="w-full h-auto block"
+          className="w-full max-h-[100dvh] object-contain block mx-auto"
         />
       )}
       <MapButton />

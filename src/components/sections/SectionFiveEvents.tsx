@@ -29,7 +29,7 @@ export function SectionFiveEvents() {
             loop
             muted
             playsInline
-            className="w-full h-auto block opacity-90"
+            className="w-full max-h-[100dvh] object-contain block opacity-90"
             style={{ filter: "saturate(1.2)" }}
           />
         )}
