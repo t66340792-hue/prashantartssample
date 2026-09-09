@@ -10,6 +10,7 @@ import { SectionSixHaldi } from "@/components/sections/SectionSixHaldi";
 import { SectionSevenSangeet } from "@/components/sections/SectionSevenSangeet";
 import { SectionBaraatTransition } from "@/components/sections/SectionBaraatTransition";
 import { SectionEightBaraat } from "@/components/sections/SectionEightBaraat";
+import { SectionRSVP } from "@/components/sections/SectionRSVP";
 import { SectionNineVenue } from "@/components/sections/SectionNineVenue";
 import { SectionTenThankYou } from "@/components/sections/SectionTenThankYou";
 
@@ -32,6 +33,7 @@ function Index() {
         <SectionSevenSangeet />
         <SectionBaraatTransition />
         <SectionEightBaraat />
+        <SectionRSVP />
         <SectionNineVenue />
         <SectionTenThankYou />
       </main>
