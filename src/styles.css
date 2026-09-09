@@ -1,0 +1,421 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Bhunesh & Sonali — luxury Indian wedding invitation design system.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Wedding palette */
+  --color-ivory: var(--ivory);
+  --color-softwhite: var(--softwhite);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-beige: var(--beige);
+  --color-mint: var(--mint);
+  --color-teal: var(--teal);
+  --color-rani: var(--rani);
+  --color-plum: var(--plum);
+  --color-ink: var(--ink);
+
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-script: "Great Vibes", cursive;
+  --font-body: "Jost", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --ivory: oklch(0.938 0.028 78.5); /* #F8EBDD */
+  --softwhite: oklch(0.976 0.019 84); /* #FFF9F0 */
+  --gold: oklch(0.734 0.106 85.6); /* #C9A24D */
+  --gold-soft: oklch(0.83 0.075 82); /* #D8B98A-ish light */
+  --beige: oklch(0.797 0.066 79.6); /* #D8B98A */
+  --mint: oklch(0.855 0.083 172); /* #8FD8C5 */
+  --teal: oklch(0.492 0.078 187.7); /* #167C7A */
+  --rani: oklch(0.657 0.171 359); /* #E85B91 */
+  --plum: oklch(0.339 0.096 331); /* #54284F */
+  --ink: oklch(0.29 0.045 330);
+
+  --background: var(--ivory);
+  --foreground: var(--ink);
+  --card: var(--softwhite);
+  --card-foreground: var(--ink);
+  --popover: var(--softwhite);
+  --popover-foreground: var(--ink);
+  --primary: var(--teal);
+  --primary-foreground: var(--softwhite);
+  --secondary: var(--mint);
+  --secondary-foreground: var(--plum);
+  --muted: oklch(0.92 0.024 78);
+  --muted-foreground: oklch(0.5 0.035 330);
+  --accent: var(--rani);
+  --accent-foreground: var(--softwhite);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: var(--softwhite);
+  --border: oklch(0.83 0.05 82);
+  --input: oklch(0.86 0.04 82);
+  --ring: var(--gold);
+
+  --gradient-gold: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-soft) 20%,
+    var(--gold) 50%,
+    var(--gold-soft) 80%,
+    transparent
+  );
+  --gradient-night: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--plum) 88%, black) 0%,
+    color-mix(in oklab, var(--plum) 60%, black) 55%,
+    color-mix(in oklab, var(--teal) 40%, black) 100%
+  );
+  --shadow-lux: 0 24px 60px -28px color-mix(in oklab, var(--plum) 55%, transparent);
+  --shadow-gold: 0 0 0 1px color-mix(in oklab, var(--gold) 45%, transparent),
+    0 18px 45px -22px color-mix(in oklab, var(--gold) 70%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+}
+
+@utility font-script {
+  font-family: var(--font-script);
+}
+
+@utility text-gilded {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--gold) 70%, white) 0%,
+    var(--gold) 35%,
+    color-mix(in oklab, var(--gold) 60%, white) 55%,
+    var(--gold) 80%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gold-rule {
+  height: 1px;
+  width: 100%;
+  background-image: var(--gradient-gold);
+}
+
+@utility panel-cream {
+  background-color: color-mix(in oklab, var(--softwhite) 82%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
+  box-shadow: var(--shadow-lux);
+}
+
+@utility panel-night {
+  background-color: color-mix(in oklab, var(--plum) 45%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, var(--gold) 55%, transparent);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  filter: blur(6px);
+  transition:
+    opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.1s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+.reveal-line {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-line.is-visible {
+  transform: scaleX(1);
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--drift, 40px), 112vh, 0) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translate3d(0, 10vh, 0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--drift, 20px), -100vh, 0) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes slow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    background-position: -180% 0;
+  }
+  100% {
+    background-position: 180% 0;
+  }
+}
+
+@keyframes burst-out {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--bx, 0px), var(--by, 0px), 0) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1.16);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 18s ease-in-out infinite alternate;
+}
+.animate-slow-spin {
+  animation: slow-spin 60s linear infinite;
+}
+.animate-soft-pulse {
+  animation: soft-pulse 3.6s ease-in-out infinite;
+}
+.animate-scroll-hint {
+  animation: scroll-hint 1.8s ease-in-out infinite;
+}
+.shimmer {
+  background-size: 220% 100%;
+  animation: shimmer-sweep 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    transform: none;
+    filter: none;
+    transition-duration: 0.45s;
+  }
+  .reveal-line {
+    transform: none;
+  }
+  .animate-ken-burns,
+  .animate-slow-spin,
+  .animate-soft-pulse,
+  .shimmer {
+    animation: none !important;
+  }
+  [data-particle-layer] {
+    display: none !important;
+  }
+}
+
+/* ── Cinematic Video Section Transitions ───────────────────────────────── */
+
+@keyframes cinematic-zoom-in {
+  0% {
+    transform: scale(1.12);
+    opacity: 0;
+    filter: brightness(0.2) blur(8px);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(0.8) blur(0px);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1) blur(0px);
+  }
+}
+
+@keyframes curtain-wipe-out {
+  0%   { transform: scaleX(1); transform-origin: left; }
+  100% { transform: scaleX(0); transform-origin: left; }
+}
+
+@keyframes slide-up-fade {
+  0%   { opacity: 0; transform: translateY(40px); letter-spacing: 0.5em; }
+  100% { opacity: 1; transform: translateY(0); letter-spacing: 0.12em; }
+}
+
+@keyframes line-expand {
+  0%   { width: 0; opacity: 0; }
+  100% { width: 80px; opacity: 1; }
+}
+
+@keyframes light-sweep {
+  0%   { left: -100%; opacity: 0; }
+  30%  { opacity: 0.6; }
+  100% { left: 120%; opacity: 0; }
+}
+
+.cinematic-video {
+  animation: cinematic-zoom-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cinematic-title {
+  animation: slide-up-fade 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.cinematic-subtitle {
+  animation: slide-up-fade 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
+}
+
+.cinematic-line {
+  animation: line-expand 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+.cinematic-curtain {
+  animation: curtain-wipe-out 0.85s cubic-bezier(0.77, 0, 0.18, 1) 0.1s both;
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cinematic-light-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.cinematic-light-sweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  animation: light-sweep 1.8s ease 1.0s both;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-video,
+  .cinematic-title,
+  .cinematic-subtitle,
+  .cinematic-line,
+  .cinematic-curtain {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
