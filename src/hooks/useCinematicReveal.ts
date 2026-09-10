@@ -15,6 +15,7 @@ export function useCinematicReveal(threshold = 0.25) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
         const visible = entry.isIntersecting;
         setIsVisible(visible);
         if (visible) setHasBeenVisible(true);

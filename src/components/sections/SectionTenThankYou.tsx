@@ -61,7 +61,7 @@ export function SectionTenThankYou() {
           <h4 className="font-script text-5xl md:text-6xl text-rani mb-6">Thank You</h4>
           
           <p className="font-body uppercase tracking-[0.2em] text-ink/60 text-xs mt-12">
-            Designed by @prashanthart
+            Designed by @prashantarts
           </p>
         </div>
       </div>

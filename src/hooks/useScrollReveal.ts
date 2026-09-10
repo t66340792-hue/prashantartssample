@@ -8,7 +8,7 @@ export function useScrollReveal(options = { threshold: 0.15, rootMargin: "0px" }
     if (!el) return;
 
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry?.isIntersecting) {
         el.classList.add("is-visible");
         // Optionally unobserve after revealing if we only want it to happen once
         // observer.unobserve(el);

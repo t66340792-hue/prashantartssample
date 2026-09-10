@@ -21,8 +21,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="relative w-full bg-ivory font-body text-ink overflow-x-hidden selection:bg-gold/30 selection:text-plum">
-      <Navigation />
-      <MusicToggle />
       <GlobalPetals />
       
       <main>
@@ -33,8 +31,8 @@ function Index() {
         <SectionSevenSangeet />
         <SectionBaraatTransition />
         <SectionEightBaraat />
-        <SectionRSVP />
         <SectionNineVenue />
+        <SectionRSVP />
         <SectionTenThankYou />
       </main>
     </div>

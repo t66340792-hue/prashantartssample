@@ -4,12 +4,13 @@ export function usePlayOnScroll(videoRef: RefObject<HTMLVideoElement | null>, pl
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && videoRef.current) {
+        const entry = entries[0];
+        if (entry?.isIntersecting && videoRef.current) {
           videoRef.current.play().catch(() => {});
           if (playOnce) {
             observer.disconnect();
           }
-        } else if (!entries[0].isIntersecting && videoRef.current && !playOnce) {
+        } else if (entry && !entry.isIntersecting && videoRef.current && !playOnce) {
           videoRef.current.pause();
         }
       },

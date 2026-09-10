@@ -70,8 +70,8 @@ export function SectionTwoStory() {
       let clientX, clientY;
 
       if ("touches" in e) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
+        clientX = e.touches[0]!.clientX;
+        clientY = e.touches[0]!.clientY;
       } else {
         clientX = e.clientX;
         clientY = e.clientY;
@@ -166,7 +166,7 @@ export function SectionTwoStory() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && videoRef.current) {
+        if (entries[0]?.isIntersecting && videoRef.current) {
           videoRef.current.play().catch(() => {
             console.log("Autoplay blocked");
           });

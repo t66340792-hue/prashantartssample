@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { clips } from "@/config/wedding";
 
+let globalAudio: HTMLAudioElement | null = null;
+
 export function SectionOneIntro() {
   const [hasStarted, setHasStarted] = useState(false);
   const [isVideoFinished, setIsVideoFinished] = useState(false);
@@ -34,6 +36,15 @@ export function SectionOneIntro() {
 
   const handleOpenInvitation = () => {
     setHasStarted(true);
+    
+    if (typeof window !== 'undefined') {
+      if (!globalAudio) {
+        globalAudio = new Audio('/music.mp3');
+        globalAudio.loop = true;
+      }
+      globalAudio.play().catch((err) => console.error("Audio play failed:", err));
+    }
+
     videoRef.current?.play().catch((err) => {
       console.error("Video play failed:", err);
     });

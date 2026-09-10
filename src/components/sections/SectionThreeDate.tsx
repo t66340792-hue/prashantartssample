@@ -54,7 +54,7 @@ export function SectionThreeDate() {
         rotation: Math.random() * 360,
         rotSpeed: -8 + Math.random() * 16,
         size: 6 + Math.random() * 9,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: COLORS[Math.floor(Math.random() * COLORS.length)]!,
         opacity: 1,
         shape: Math.random() > 0.35 ? "rect" : "circle",
       };
@@ -153,7 +153,7 @@ export function SectionThreeDate() {
 
     const getPos = (e: MouseEvent | TouchEvent) => {
       const rect = canvas.getBoundingClientRect();
-      const src = "touches" in e ? e.touches[0] : e;
+      const src = "touches" in e ? e.touches[0]! : e;
       return { x: src.clientX - rect.left, y: src.clientY - rect.top };
     };
 
