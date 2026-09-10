@@ -1,7 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { clips, weddingData } from "@/config/wedding";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useCountdown } from "@/hooks/useCountdown";
+
+type Particle = {
+  x: number; y: number;
+  vx: number; vy: number;
+  rotation: number; rotSpeed: number;
+  size: number;
+  color: string;
+  opacity: number;
+  shape: "rect" | "circle";
+};
+
+const COLORS = ["#E85B91", "#ff90bb", "#ff4d7d", "#ffb3d0", "#ff1a6b", "#C9A24D", "#ffd6e7", "#ff69a5", "#E85B91", "#ff1493"];
 
 export function SectionTwoStory() {
   const revealRef = useScrollReveal();
@@ -10,11 +22,95 @@ export function SectionTwoStory() {
   const [isRevealed, setIsRevealed] = useState(false);
   const [isScratching, setIsScratching] = useState(false);
 
+  const confettiCanvasRef = useRef<HTMLCanvasElement>(null);
+  const animFrameRef = useRef<number | null>(null);
+  const particlesRef = useRef<Particle[]>([]);
+
   const { days, hours, minutes, seconds, isPast } = useCountdown(weddingData.weddingDate);
 
   const videoSrc = clips.two ? clips.two.src : clips.one?.src;
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // ── Confetti blast ────────────────────────────────────────────
+  const launchConfetti = useCallback(() => {
+    const canvas = confettiCanvasRef.current;
+    if (!canvas) return;
+
+    // Size canvas to full viewport
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Get card center in viewport coordinates
+    const cardRect = containerRef.current?.getBoundingClientRect();
+    const cx = cardRect ? cardRect.left + cardRect.width / 2 : canvas.width / 2;
+    const cy = cardRect ? cardRect.top + cardRect.height / 2 : canvas.height / 2;
+
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+
+    // Spawn 150 particles from the card's centre
+    particlesRef.current = Array.from({ length: 150 }, () => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 5 + Math.random() * 14;
+      return {
+        x: cx,
+        y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 6,
+        rotation: Math.random() * 360,
+        rotSpeed: -8 + Math.random() * 16,
+        size: 6 + Math.random() * 9,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)]!,
+        opacity: 1,
+        shape: Math.random() > 0.35 ? "rect" : "circle",
+      };
+    });
+
+    const tick = () => {
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let alive = false;
+      for (const p of particlesRef.current) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.4;    // gravity
+        p.vx *= 0.98;   // air drag
+        p.rotation += p.rotSpeed;
+        p.opacity -= 0.014;
+        if (p.opacity <= 0) continue;
+        alive = true;
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+
+        if (p.shape === "rect") {
+          ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size / 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      if (alive) {
+        animFrameRef.current = requestAnimationFrame(tick);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    };
+
+    animFrameRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  useEffect(() => () => {
+    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+  }, []);
 
   // Scratch card logic
   useEffect(() => {
@@ -139,6 +235,7 @@ export function SectionTwoStory() {
       if (percentRevealed > 60) {
         setIsRevealed(true);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        launchConfetti();
       }
     };
 
@@ -160,7 +257,7 @@ export function SectionTwoStory() {
       canvas.removeEventListener("touchmove", handleMove);
       window.removeEventListener("touchend", handleEnd);
     };
-  }, [isRevealed]);
+  }, [isRevealed, launchConfetti]);
 
   // Video intersection observer logic
   useEffect(() => {
@@ -185,8 +282,15 @@ export function SectionTwoStory() {
 
   return (
     <div id="story" className="w-full flex flex-col bg-ivory">
+      {/* Confetti canvas — fixed over FULL VIEWPORT, above everything */}
+      <canvas
+        ref={confettiCanvasRef}
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 9999 }}
+      />
+
       {/* Video Section with Scratch Card */}
-      <section className="relative w-full h-screen overflow-hidden bg-black flex flex-col items-center justify-end pb-[12vh] md:pb-[15vh]">
+      <section className="relative w-full h-screen overflow-hidden bg-ivory flex flex-col items-center justify-end pb-[12vh] md:pb-[15vh]">
         {/* Background Video */}
         {videoSrc && (
           <video
@@ -196,10 +300,9 @@ export function SectionTwoStory() {
             // autoPlay removed to only play when in view
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-80"
+            className="absolute inset-0 w-full h-full object-cover opacity-100"
           />
         )}
-        <div className="absolute inset-0 bg-black/20" />
 
         {/* Content overlay */}
         <div ref={revealRef as any} className="reveal relative z-10 w-full max-w-4xl mx-auto px-6 flex flex-col items-center">

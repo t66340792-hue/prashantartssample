@@ -60,7 +60,7 @@ export function SectionOneIntro() {
   // to avoid hydration mismatch
   if (!mounted) {
     return (
-      <section id="home" className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
+      <section id="home" className="relative w-full h-screen overflow-hidden bg-ivory flex items-center justify-center">
         <video
           src={`${clips.one.src}#t=0.001`}
           preload="metadata"
@@ -81,7 +81,7 @@ export function SectionOneIntro() {
   // Already seen — show unblocked minimal section
   if (alreadySeen) {
     return (
-      <section id="home" className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
+      <section id="home" className="relative w-full h-screen overflow-hidden bg-ivory flex items-center justify-center">
         <video
           src={`${clips.one.src}#t=0.001`}
           preload="metadata"
@@ -102,7 +102,7 @@ export function SectionOneIntro() {
 
   // First visit — full experience with scroll lock
   return (
-    <section id="home" className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
+    <section id="home" className="relative w-full h-screen overflow-hidden bg-ivory flex items-center justify-center">
       <video
         ref={videoRef}
         src={`${clips.one.src}#t=0.001`}

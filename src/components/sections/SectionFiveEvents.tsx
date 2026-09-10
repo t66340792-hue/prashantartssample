@@ -29,11 +29,9 @@ export function SectionFiveEvents() {
             loop
             muted
             playsInline
-            className="w-full max-h-[100dvh] object-contain block opacity-90"
-            style={{ filter: "saturate(1.2)" }}
+            className="w-full max-h-[100dvh] object-contain block opacity-100"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
         <MapButton />
       </div>
     </section>

@@ -6,7 +6,7 @@ export function SectionEightBaraat() {
   const posterSrc = clips.six?.poster;
 
   return (
-    <section className="relative w-full bg-black overflow-hidden">
+    <section className="relative w-full bg-ivory overflow-hidden">
       {videoSrc && (
         <video
           src={videoSrc}

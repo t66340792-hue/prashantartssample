@@ -9,7 +9,7 @@ export function SectionSixHaldi() {
   if (!event) return null;
 
   return (
-    <section className="relative w-full bg-black overflow-hidden">
+    <section className="relative w-full bg-ivory overflow-hidden">
       {videoSrc && (
         <video
           src={videoSrc}
